@@ -1,0 +1,26 @@
+<div class="modal" id="categoria_base">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{% url 'url_categoria_base' %}" method="post">
+                {% csrf_token %}
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Categoria Base</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="text" id="base_id" name="base_id" hidden>
+                    <input type="text" id="base_descricao" name="base_descricao" class="form-control" autofocus>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Salvar
+                    </button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

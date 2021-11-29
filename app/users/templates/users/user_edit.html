@@ -1,0 +1,73 @@
+{% extends "core/base.html" %}
+{% load bootstrap %}
+{% block content %}
+
+<form method="post">
+
+    <h1>
+        {%if usuario.is_active %} Cadastro de Usuário {% else %} Usuário Inativo {%endif%}
+    </h1>
+
+    {% csrf_token %}
+
+    <fieldset>
+        <div class="row">
+            <div class="col-12 col-md-3 form-group">
+                {{ form.username|default_if_none:""|bootstrap }}
+            </div>
+            <div class="col-12 col-md-5 form-group">
+                {{ form.first_name|default_if_none:""|bootstrap }}
+            </div>
+            <div class="col-12 col-md-4 form-group">
+                {{ form.last_name|default_if_none:""|bootstrap }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-3 form-group">
+                {{ form.celular|default_if_none:""|bootstrap }}
+            </div>
+            <div class="col-12 col-md-7 form-group">
+                {{ form.email|default_if_none:""|bootstrap }}
+            </div>
+            <div class="col-12 col-md-2 form-group">
+                {{ form.is_consulta|default_if_none:""|bootstrap }}
+            </div>
+        </div>
+
+    </fieldset>
+
+    <button type="submit" class="btn btn-primary" {%if not usuario.is_active %} disabled {%endif%}>
+        <i class="fas fa-save"></i>Salvar Modificações
+    </button>
+
+    {%if usuario.pk == user.pk %}
+    <a href="{% url 'url_user_password' %}">
+        <button type="button" class="btn btn-secondary" title="Senha">
+            <i class="fas fa-key"></i>Modificar senha
+        </button>
+    </a>
+    {%endif%}
+
+    {%if user.is_superuser %}
+    <button type="submit" value="btn_staff" name="btn_staff" class="btn btn-secondary"
+            {%if usuario.pk == user.pk or not usuario.is_active %} disabled {%endif%}>
+        <i class="fas fa-save"></i>
+        {%if usuario.is_staff %} Administrador {% else %} Operador {%endif%}
+    </button>
+    <button type="submit" value="btn_ativa" name="btn_ativa" class="btn btn-warning"
+            {%if usuario.pk == user.pk %} disabled {%endif%}>
+        <i class="fas fa-save"></i>
+        {%if usuario.is_active %} Inativar {% else %} Ativar {%endif%}
+    </button>
+
+    <a href="{% url 'url_user_list' %}">
+        <button type="button" class="btn btn-secondary" title="lista de usuários">
+            <i class="fas fa-stream"></i>Lista
+        </button>
+    </a>
+
+    {%endif%}
+
+</form>
+
+{% endblock %}

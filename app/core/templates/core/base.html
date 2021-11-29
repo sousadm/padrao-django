@@ -1,0 +1,123 @@
+<!doctype html>
+{% load static %}
+{% load bootstrap %}
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Sistema de Gerenciamento"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> {% block titulo %} Padrão {% endblock %} </title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!--        <script src="{% static 'js/menu.js' %}"></script>-->
+
+    <script language=javascript type="text/javascript">
+function abrirJanela(pagina, largura, altura) {
+    var esquerda = (screen.width - largura)/2;
+    var topo = (screen.height - altura)/2;
+    minhaJanela = window.open('https://127.0.0.1:8000/' + pagina,'','height=' + altura + ', width=' + largura + ', top=' + topo + ', left=' + esquerda);
+}
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+    <script>
+    jQuery(function($){
+        $("#campoData").mask("99/99/9999");
+        $("#campoTelefone").mask("(999) 999-9999");
+        $("#campoSenha").mask("***-****");
+    });
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+    <script>   {% block script %} {% endblock %}
+
+        $(document).ready(function() {
+            $("#success-alert").fadeTo(3000, 1000).slideUp(1000, function() {
+              $("#success-alert").slideUp(5000);
+            });
+        });
+
+        function confirma(pergunta) {
+            var agree=confirm(pergunta);
+            if (agree)
+                return true ;
+            else
+            return false ;
+        }
+
+        function upperCaseF(a){
+            setTimeout(function(){
+                a.value = a.value.toUpperCase();
+            }, 1);
+        }
+
+$(document).ready(function(){
+    $('.date').mask('00/00/0000')
+});
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div id="content">
+        {% include 'core/messages.html' %}
+        {% include 'core/menu.html' %}
+        <div style="margin-top: 2px">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+    {% block footer %}
+    <footer id="footer">
+        <span style="color: #cccccc">Copyright © 2021 Contrate</span>
+    </footer>
+    {% endblock %}
+
+</div>
+
+</body>
+
+</html>

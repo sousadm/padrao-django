@@ -1,0 +1,142 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load bootstrap %}
+
+{% block titulo %} Produto {% endblock %}
+
+{% block content %}
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    <h1>Categoria</h1>
+
+    <div style="text-align: right; margin-top: -35px">
+        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#categoria_base">
+            Add Base
+        </button>
+    </div>
+
+    <div class="table-responsive" style="margin-top: 3px;">
+        <table class="table table-striped table-sm">
+            <thead>
+            <tr>
+                <th colspan="4">Descrição da categoria</th>
+                <th width="120"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in lista %}
+            <tr>
+
+                {% for i in item.range %}
+                <td></td>
+                {% endfor %}
+
+                <td {% if item.colspan > 0 %} colspan="{{ item.colspan }}" {% endif %}>
+                    {{ item.descricao|default_if_none:"" }}
+                </td>
+
+                <td>
+
+                    {% if item == item.origem %}
+                    <button onclick="pega_categoria_base({{item.id}},'{{item.descricao}}')" type="button"
+                            class="btn btn-sm" title="editar"
+                            data-bs-toggle="modal" data-bs-target="#categoria_base">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    {% else %}
+                    <button onclick="pega_categoria( {{item.origem.id}}, '{{item.origem.descricao}}', {{item.id}}, '{{item.descricao}}' )"
+                            type="button" class="btn btn-sm" title="editar"
+                            data-bs-toggle="modal" data-bs-target="#categoria_item">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    {% endif %}
+
+                    <button onclick="add_categoria( {{item.id}}, '{{item.descricao}}' )"
+                            type="button" class="btn btn-sm" title="add item"
+                            data-bs-toggle="modal" data-bs-target="#categoria_item">
+                        <i class="fas fa-plus"></i>
+                    </button>
+
+                    <a href="{{ item.get_delete_url }}">
+                        <button type="button" class="btn btn-sm" title="excluir"
+                                onClick='return confirma("Excluir o registro atual?")'>
+                            <i class='fas fa-trash'></i>
+                        </button>
+                    </a>
+
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="2"><span>sem registros</span></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!--    <div class="fixed-bottom">-->
+    <!--        <div class="container bg-light p-1 mb-3">-->
+    <!--            <a href="{% url 'url_produto_add' %}">-->
+    <!--                <button type="button" class="btn btn-secondary">-->
+    <!--                    <i class="fas fa-file"></i> Novo-->
+    <!--                </button>-->
+    <!--            </a>-->
+    <!--        </div>-->
+    <!--    </div>-->
+
+
+</form>
+
+{% include 'produto/categoria_base.html' %}
+{% include 'produto/categoria_item.html' %}
+
+
+<script>
+    function pega_categoria_base(id, descricao) {
+        input_id = document.getElementById('base_id')
+        input_id.value = id
+        input_descricao = document.getElementById('base_descricao')
+        input_descricao.value = descricao
+
+    }
+
+    function pega_categoria(origem_id, origem_descricao, item_id, item_descricao) {
+
+        input_item_origem_id = document.getElementById('item_origem_id')
+        input_item_origem_id.value = origem_id
+
+        input_origem_descricao = document.getElementById('item_origem_descricao')
+        input_origem_descricao.value = origem_descricao
+
+        input_item_id = document.getElementById('item_id')
+        input_item_id.value = item_id
+
+        input_descricao = document.getElementById('item_descricao')
+        input_descricao.value = item_descricao
+
+    }
+
+
+    function add_categoria(origem_id, origem_descricao) {
+
+        input_item_origem_id = document.getElementById('item_origem_id')
+        input_item_origem_id.value = origem_id
+
+        input_origem_descricao = document.getElementById('item_origem_descricao')
+        input_origem_descricao.value = origem_descricao
+
+    }
+
+
+</script>
+
+
+
+
+{% endblock %}
+
+

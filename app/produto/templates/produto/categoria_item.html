@@ -1,0 +1,32 @@
+<div class="modal" id="categoria_item">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{% url 'url_categoria_item' %}" method="post">
+                {% csrf_token %}
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Categoria Item</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <input type="text" id="item_origem_id" name="item_origem_id" hidden>
+                    <input type="text" id="item_id" name="item_id" hidden>
+
+                    <input type="text" id="item_origem_descricao" name="item_origem_descricao" class="form-control" disabled>
+                    <br/>
+                    <input type="text" id="item_descricao" name="item_descricao" class="form-control" autofocus>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Salvar
+                    </button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
