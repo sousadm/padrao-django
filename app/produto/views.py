@@ -204,14 +204,19 @@ def categoria_base(request):
 
 def categoria_item(request):
     try:
-        origem_id = request.POST.get('origem_id')
-        origem = Categoria.objects.get(pk=origem_id)
-        base_id = request.POST.get('base_id')
-        categoria = Categoria.objects.get(pk=base_id) if base_id else Categoria()
-        categoria.descricao = request.POST.get('base_descricao')
+        print('aki')
+        item_origem_id = request.POST.get('item_origem_id')
+        item_id = request.POST.get('item_id')
+        is_grupo = request.POST.get('item_grupo')
+        print('is_grupo', is_grupo)
+
+        categoria = Categoria.objects.get(pk=item_id) if item_id else Categoria()
+        origem = Categoria.objects.get(pk=item_origem_id) if item_origem_id else Categoria()
+
+        categoria.descricao = request.POST.get('item_descricao')
         categoria.origem = origem
-        categoria.is_grupo = False
+        # categoria.is_grupo = is_grupo
         categoria.save()
     except Exception as e:
-        messages.error(request, 'erro ao gravar o registro')
+        messages.error(request, 'origem_id: ' + str(2) )
     return HttpResponseRedirect(reverse('url_categoria'))

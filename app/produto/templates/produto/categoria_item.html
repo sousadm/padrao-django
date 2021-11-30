@@ -1,7 +1,7 @@
 <div class="modal" id="categoria_item">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{% url 'url_categoria_item' %}" method="post">
+            <form action="{% url 'url_categoria_item' %}" method="POST">
                 {% csrf_token %}
 
                 <div class="modal-header">
@@ -10,14 +10,25 @@
                 </div>
 
                 <div class="modal-body">
+                    <div class="container">
+                        <input type="text" id="item_origem_id" name="item_origem_id" hidden>
+                        <input type="text" id="item_id" name="item_id" hidden>
 
-                    <input type="text" id="item_origem_id" name="item_origem_id" hidden>
-                    <input type="text" id="item_id" name="item_id" hidden>
+                        <input type="text" id="item_origem_descricao" name="item_origem_descricao"
+                               class="form-control"
+                               disabled>
+                        <br/>
+                        <input type="text" id="item_descricao" name="item_descricao" class="form-control" autofocus>
 
-                    <input type="text" id="item_origem_descricao" name="item_origem_descricao" class="form-control" disabled>
-                    <br/>
-                    <input type="text" id="item_descricao" name="item_descricao" class="form-control" autofocus>
+                        <br/>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input id="item_grupo" name="item_grupo" type="checkbox" class="form-check-input" value="True">
+                                Item de agrupamento
+                            </label>
+                        </div>
 
+                    </div>
                 </div>
 
                 <div class="modal-footer">

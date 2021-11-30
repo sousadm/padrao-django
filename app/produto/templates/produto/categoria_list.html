@@ -47,7 +47,7 @@
                         <i class="fas fa-edit"></i>
                     </button>
                     {% else %}
-                    <button onclick="pega_categoria( {{item.origem.id}}, '{{item.origem.descricao}}', {{item.id}}, '{{item.descricao}}' )"
+                    <button onclick="pega_categoria_item( {{item.origem.id}}, '{{item.origem.descricao}}', {{item.id}}, '{{item.descricao}}', '{{item.is_grupo}}' )"
                             type="button" class="btn btn-sm" title="editar"
                             data-bs-toggle="modal" data-bs-target="#categoria_item">
                         <i class="fas fa-edit"></i>
@@ -104,7 +104,9 @@
 
     }
 
-    function pega_categoria(origem_id, origem_descricao, item_id, item_descricao) {
+    function pega_categoria_item(origem_id, origem_descricao, item_id, item_descricao, is_grupo) {
+
+        console.log('aki: ', is_grupo)
 
         input_item_origem_id = document.getElementById('item_origem_id')
         input_item_origem_id.value = origem_id
@@ -117,6 +119,10 @@
 
         input_descricao = document.getElementById('item_descricao')
         input_descricao.value = item_descricao
+
+        input_is_grupo = document.getElementById('item_grupo')
+        input_is_grupo.checked = True
+
 
     }
 
@@ -131,6 +137,9 @@
 
     }
 
+    function teste(valor) {
+        console.log('valor:  ', valor)
+    }
 
 </script>
 
