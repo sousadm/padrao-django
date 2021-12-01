@@ -1,4 +1,4 @@
-<div class="modal" id="categoria_item">
+<div class="modal" id="categoria_item" xmlns="http://www.w3.org/1999/html">
     <div class="modal-dialog">
         <div class="modal-content">
             <form action="{% url 'url_categoria_item' %}" method="POST">
@@ -11,6 +11,7 @@
 
                 <div class="modal-body">
                     <div class="container">
+
                         <input type="text" id="item_origem_id" name="item_origem_id" hidden>
                         <input type="text" id="item_id" name="item_id" hidden>
 
@@ -18,12 +19,19 @@
                                class="form-control"
                                disabled>
                         <br/>
-                        <input type="text" id="item_descricao" name="item_descricao" class="form-control" autofocus>
 
+                        <input type="text" id="item_codigo" name="item_codigo"
+                               class="form-control" maxlength="20" value="" placeholder="código">
                         <br/>
+
+                        <input type="text" id="item_descricao" name="item_descricao"
+                               class="form-control" maxlength="100" value="" placeholder="descrição" autofocus>
+                        <br/>
+
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input id="item_grupo" name="item_grupo" type="checkbox" class="form-check-input" value="True">
+                                <input id="item_grupo" name="item_grupo" type="checkbox" class="form-check-input"
+                                       value="True">
                                 Item de agrupamento
                             </label>
                         </div>
