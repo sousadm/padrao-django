@@ -191,6 +191,7 @@ def categoria_base(request):
         base_id = request.POST.get('base_id')
         categoria = Categoria.objects.get(pk=base_id) if base_id else Categoria()
         categoria.descricao = request.POST.get('base_descricao')
+        categoria.codigo = request.POST.get('base_codigo')
         categoria.is_grupo = True
         categoria.save()
         if not categoria.origem:
@@ -204,19 +205,27 @@ def categoria_base(request):
 
 def categoria_item(request):
     try:
-        print('aki')
+
         item_origem_id = request.POST.get('item_origem_id')
         item_id = request.POST.get('item_id')
         is_grupo = request.POST.get('item_grupo')
-        print('is_grupo', is_grupo)
 
         categoria = Categoria.objects.get(pk=item_id) if item_id else Categoria()
         origem = Categoria.objects.get(pk=item_origem_id) if item_origem_id else Categoria()
 
+        categoria.codigo = request.POST.get('item_codigo')
         categoria.descricao = request.POST.get('item_descricao')
         categoria.origem = origem
-        # categoria.is_grupo = is_grupo
+        categoria.nivel = origem.nivel + 1
+        categoria.is_grupo = True if is_grupo else False
+
+        # será agrupador caso tenha dependentes
+        if not categoria.is_grupo and categoria.pk:
+            lst = Categoria.objects.filter(origem=categoria.pk)
+            categoria.is_grupo = len(lst) > 0
+
         categoria.save()
+
     except Exception as e:
         messages.error(request, 'origem_id: ' + str(2) )
     return HttpResponseRedirect(reverse('url_categoria'))

@@ -18,7 +18,8 @@ def get_image_path(instance, filename):
 class Categoria(models.Model):
     uuid = models.UUIDField(_("UUID"), editable=False, default=uuid.uuid4)
     origem = models.ForeignKey('Categoria', null=True, related_name='Categoria', on_delete=models.CASCADE)
-    descricao = models.CharField('Descrição', max_length=50)
+    codigo = models.CharField('Código', max_length=20, blank=True, null=True)
+    descricao = models.CharField('Descrição', max_length=100)
     nivel = models.IntegerField('Nível', default=1, validators=[MaxValueValidator(2), MinValueValidator(1)])
     created_dt = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     update_dt = models.DateTimeField(auto_now=True, blank=True, null=True)
